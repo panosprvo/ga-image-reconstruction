@@ -78,3 +78,11 @@ class CrossoverMethod:
                 genome_two[index] = temp
         offspring = [genome_one, genome_two]
         return offspring
+
+
+def main():
+    return
+
+
+if __name__ == '__main__':
+    main()

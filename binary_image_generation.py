@@ -15,6 +15,7 @@ class BinaryImage:
     def create_random_binary_image(self):
         """
         A random binary image is generated with dimensions size * size and saved to file.
+
         :return: a binary image.
         """
         # Generate black image (sequence)
@@ -39,7 +40,9 @@ class BinaryImage:
     def binary_image_to_binary_array(self, img):
         """
         An image of black and white pixels is used to generate a numpy array of 0s and 1s.
+
         :param img: binary image (*.png).
+
         :return: a 2D binary array.
         """
         # Convert black and white pixels of the image to an array of binary arrays, each line is a new array.
@@ -65,7 +68,9 @@ class BinaryImage:
     def binary_array_to_binary_image(self, binary_array):
         """
         Generate a binary image from a binary numpy array.
+
         :param binary_array: 2d binary array.
+
         :return: a binary image.
         """
         # Convert the array to a sequence of numbers

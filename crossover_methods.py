@@ -6,79 +6,81 @@ from config import *
 
 
 class CrossoverMethod:
-    def __init__(self, genome_one, genome_two):
+    def __init__(self):
         self.config = Config()
-        self.genome_one = genome_one
-        self.genome_two = genome_two
 
-    def single_point_crossover(self, genome_one, genome_two):
+    def generate_random_crossover_point(self):
         """
-        With this method, we randomly select one crossover point.Each parental array is split into two parts.
-        Combining a part of one parent with that one of the other parent, we generate two children.
-        :param genome_one: binary array from the first parent.
-        :param genome_two: binary array from the second parent.
+        Generate an integer number that will be used for the single point crossover method.
+
+        :return: int
+        """
+        return random.randint(1, self.config.GENOME_LENGTH - 1)
+
+    def single_point_crossover(self, genome_one, genome_two, crossover_point):
+        """
+        With this method, we select one crossover point.Each parental array is split into two parts. Combining a part
+        of one parent with that one of the other parent, we generate two children.
+
+        :param genome_one: numpy 2d array.
+        :param genome_two: numpy 2d array.
+        :param crossover_point: int.
+
         :return: an array consisting of two binary arrays (i.e., the two offspring).
         """
-        crossover_point = random.randint(1, self.config.GENOME_LENGTH - 1)
-        child_one = np.append(genome_one[:crossover_point], genome_two[crossover_point:])
-        child_two = np.append(genome_two[:crossover_point], genome_one[crossover_point:])
+        child_one = np.append(genome_one[:crossover_point], genome_two[crossover_point:],
+                              axis=0)
+        child_two = np.append(genome_two[:crossover_point], genome_one[crossover_point:],
+                              axis=0)
         offspring = [child_one, child_two]
         return offspring
 
     def double_point_crossover(self, genome_one, genome_two):
         """
-        With this method, we randomly select two crossover points. Each parental array is split into three parts.
-        These are used to generate two children.
-        :param genome_one: binary array from the first parent.
-        :param genome_two: binary array from the second parent.
+        With this method, we randomly select two crossover points. We run a loop for those points using the single-point
+        crossover method for each of the points.
+
+        :param genome_one: numpy 2d array.
+        :param genome_two: numpy 2d array.
+
         :return: an array consisting of two binary arrays (i.e., the two offspring).
         """
         crossover_point_one = random.randint(1, self.config.GENOME_LENGTH - 1)
         crossover_point_two = random.randint(1, self.config.GENOME_LENGTH - 1)
+        points = np.array([crossover_point_one, crossover_point_two])
+
+        # In case the random numbers generated are the same, rerun the method.
         while crossover_point_one == crossover_point_two:
             self.double_point_crossover(genome_one, genome_two)
-            print("Retrying...")
 
-        crossover_point_lesser = crossover_point_greater = 0
-        if crossover_point_one < crossover_point_two:
-            crossover_point_lesser = crossover_point_one
-            crossover_point_greater = crossover_point_two
-
-        child_one = np.append(genome_one[:crossover_point_lesser],
-                              genome_two[crossover_point_lesser:crossover_point_greater],
-                              genome_one[crossover_point_greater:])
-
-        child_two = np.append(genome_two[:crossover_point_lesser],
-                              genome_one[crossover_point_lesser:crossover_point_greater],
-                              genome_two[crossover_point_greater:])
-
-        offspring = [child_one, child_two]
+        for index in points:
+            genome_one, genome_two = self.single_point_crossover(genome_one, genome_two, index)
+        offspring = [genome_one, genome_two]
         return offspring
 
     def uniform_crossover(self, genome_one, genome_two):
         """
-        With this method, each bit is chosen in random from each parent. In the end, we generate two children with
-        genomes that can be extremely different from the parental ones.
-        :param genome_one: binary array from the first parent.
-        :param genome_two: binary array from the second parent.
+        With this method, each bit is chosen in random from each parent using a probability matrix. In the end, we
+        generate two children with genomes that can be widely different from the parental ones.
+
+        :param genome_one: numpy 2d array.
+        :param genome_two: numpy 2d array.
+
         :return: an array consisting of two binary arrays (i.e., the two offspring).
         """
-        child_one = []
-        child_two = []
-        for i in range(len(self.config.GENOME_LENGTH)):
-            parent_selector = random.randint(0, 1)
-            if parent_selector == 0:
-                child_one[i] = genome_one[i]
-                child_two[i] = genome_two[i]
-            elif parent_selector == 1:
-                child_one[i] = genome_two[i]
-                child_two[i] = genome_one[i]
-        offspring = [child_one, child_two]
+        # Generate the probability matrix
+        probability = np.random.rand(self.config.GENOME_LENGTH)
+        for index in range(len(probability)):
+            # Values less or greater than 0.5 can be considered here.
+            if probability[index] < 0.5:
+                temp = genome_one[index]
+                genome_one[index] = genome_two[index]
+                genome_two[index] = temp
+        offspring = [genome_one, genome_two]
         return offspring
 
 
 def main():
-    genome_one = np.a
 
 
 if __name__ == '__main__':

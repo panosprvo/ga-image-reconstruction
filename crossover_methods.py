@@ -70,7 +70,7 @@ class CrossoverMethod:
         """
         # Generate the probability matrix
         probability = np.random.rand(self.config.GENOME_LENGTH)
-        for index in range(len(probability)):
+        for index in range(len(self.config.UNIFORM_PROBABILITY)):
             # Values less or greater than 0.5 can be considered here.
             if probability[index] < 0.5:
                 temp = genome_one[index]

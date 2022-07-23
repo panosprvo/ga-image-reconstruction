@@ -35,23 +35,23 @@ class CrossoverMethod:
         offspring = [child_one, child_two]
         return offspring
 
-    def double_point_crossover(self, genome_one, genome_two):
+    def double_point_crossover(self, genome_one, genome_two, crossover_point_one, crossover_point_two):
         """
         With this method, we randomly select two crossover points. We run a loop for those points using the single-point
         crossover method for each of the points.
 
         :param genome_one: numpy 2d array.
         :param genome_two: numpy 2d array.
+        :param crossover_point_one: int.
+        :param crossover_point_two: int.
 
         :return: an array consisting of two binary arrays (i.e., the two offspring).
         """
-        crossover_point_one = random.randint(1, self.config.GENOME_LENGTH - 1)
-        crossover_point_two = random.randint(1, self.config.GENOME_LENGTH - 1)
         points = np.array([crossover_point_one, crossover_point_two])
 
         # In case the random numbers generated are the same, rerun the method.
         while crossover_point_one == crossover_point_two:
-            self.double_point_crossover(genome_one, genome_two)
+            self.double_point_crossover(genome_one, genome_two, crossover_point_one, crossover_point_two)
 
         for index in points:
             genome_one, genome_two = self.single_point_crossover(genome_one, genome_two, index)
@@ -69,19 +69,12 @@ class CrossoverMethod:
         :return: an array consisting of two binary arrays (i.e., the two offspring).
         """
         # Generate the probability matrix
-        probability = np.random.rand(self.config.GENOME_LENGTH)
-        for index in range(len(self.config.UNIFORM_PROBABILITY)):
+        probability_matrix = np.random.rand(self.config.GENOME_LENGTH)
+        for index in range(len(probability_matrix)):
             # Values less or greater than 0.5 can be considered here.
-            if probability[index] < 0.5:
+            if probability_matrix[index] < self.config.UNIFORM_PROBABILITY:
                 temp = genome_one[index]
                 genome_one[index] = genome_two[index]
                 genome_two[index] = temp
         offspring = [genome_one, genome_two]
         return offspring
-
-
-def main():
-
-
-if __name__ == '__main__':
-    main()

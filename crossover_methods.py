@@ -33,7 +33,7 @@ class CrossoverMethod:
                               axis=0)
         child_two = np.append(genome_two[:crossover_point], genome_one[crossover_point:],
                               axis=0)
-        offspring = [child_one, child_two]
+        offspring = [np.ndarray.tolist(child_one), np.ndarray.tolist(child_two)]
         return offspring
 
     def double_point_crossover(self, genome_one, genome_two, crossover_point_one, crossover_point_two):
@@ -56,7 +56,7 @@ class CrossoverMethod:
 
         for index in points:
             genome_one, genome_two = self.single_point_crossover(genome_one, genome_two, index)
-        offspring = [genome_one, genome_two]
+        offspring = [np.ndarray.tolist(genome_one), np.ndarray.tolist(genome_two)]
         return offspring
 
     def uniform_crossover(self, genome_one, genome_two):
@@ -84,18 +84,16 @@ class CrossoverMethod:
 def main():
     bi1 = BinaryImage()
     img1 = bi1.create_random_binary_image()
-    array1 = bi1.binary_image_to_binary_array(img1)
-    par1 = np.ndarray.tolist(array1)
-    print(f"Parent1: {array1}")
+    par1 = bi1.binary_image_to_binary_array(img1)
+    print(f"Parent1: {par1}")
 
     bi2 = BinaryImage()
     img2 = bi2.create_random_binary_image()
-    array2 = bi2.binary_image_to_binary_array(img2)
-    par2 = np.ndarray.tolist(array2)
-    print(f"Parent2: {array2}")
+    par2 = bi2.binary_image_to_binary_array(img2)
+    print(f"Parent2: {par2}")
 
     cross = CrossoverMethod()
-    kids = cross.uniform_crossover(par1, par2)
+    kids = cross.single_point_crossover(par1, par2, 5)
     print(f"Child1: {kids[0]}")
     print(f"Child2: {kids[1]}")
 

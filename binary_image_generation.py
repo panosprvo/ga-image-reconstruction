@@ -16,7 +16,6 @@ def save_binary_array(binary_array):
 
 
 def save_random_binary_image(img):
-    # Save image without overwriting existing generating images. We set the limit arbitrarily to 100.
     for i in range(100):
         if os.path.exists('random_binary_image_' + str(i) + '.png'):
             continue
@@ -65,7 +64,6 @@ class BinaryImage:
         """
         # Convert black and white pixels of the image to an array of binary arrays, each line is a new array.
         # Any pixels that have colour of greater than 0 (not black), are set to 1
-        # img_bin = im.open(img).convert('L')
         np_img = np.array(img)
         np_img[np_img > 0] = 1
 
@@ -73,9 +71,9 @@ class BinaryImage:
         # Avoid truncation when printing np array
         np.set_printoptions(threshold=sys.maxsize, suppress=True)
 
-        # Convert the image to a binary array, without overwriting preexisting files. We set the limit arbitrarily to 100.
+        # Convert the image to a binary array.
         binary_array = np_img.astype(int)
-        return binary_array
+        return np.ndarray.tolist(binary_array)
 
     def binary_array_to_binary_image(self, binary_array):
         """

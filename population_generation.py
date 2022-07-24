@@ -14,15 +14,13 @@ class InitialGeneration:
 
         :return:
         """
-        for index in range(self.config.POPULATION):
-            self.population[index] = [random.randint(0, 1) for i in range(0, self.config.GENOME_LENGTH)]
+        for individual in range(self.config.POPULATION):
+            for gene in range(self.config.GENOME_LENGTH):
+                self.population[individual][gene] = [random.randint(0, 1) for i in range(0, self.config.GENOME_LENGTH)]
 
 
 def main():
-    pop = InitialGeneration()
-    pop.initialise()
-    for i in range(10):
-        print(pop.population[i])
+    return
 
 
 if __name__ == '__main__':

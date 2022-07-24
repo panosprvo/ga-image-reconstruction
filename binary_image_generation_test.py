@@ -6,8 +6,8 @@ from binary_image_generation import *
 def test_create_random_binary_image1():
     binary_image = BinaryImage()
     img = binary_image.create_random_binary_image()
-    assert np.sum(img == 255) == 512
-    assert np.sum(img == 0) == 512
+    assert np.sum(img == 255) == 128
+    assert np.sum(img == 0) == 128
 
 
 def test_create_random_binary_image2():

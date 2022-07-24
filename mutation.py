@@ -11,14 +11,15 @@ class Chromosome:
 
     def do_mutation(self):
         """
-        Depending on config.MUTATION_PROBABILITY, we
-        :return:
+        Depending on config.MUTATION_PROBABILITY, we produce a random number between 0 and 1 to decide whether a
+        mutation for the specific gene should take place or not. Mutation is the reversal of 0 to 1, and 1 to 0.
+        :return: void - method that only flips genes that should be mutated.
         """
         for index in range(self.config.GENOME_LENGTH):
             if random.uniform(0, 1) <= self.config.MUTATION_PROBABILITY:
-                self.genome[index] = self.mutate(self.genome[index])
+                self.genome[index] = self.__mutate(self.genome[index])
 
-    def mutate(self, gene):
+    def __mutate(self, gene):
         if gene == 0:
             return 1
         return 0

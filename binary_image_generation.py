@@ -7,6 +7,31 @@ from PIL import Image as im
 from config import Config
 
 
+def save_binary_array(binary_array):
+    for i in range(100):
+        if os.path.exists('binary_array_' + str(i) + '.txt'):
+            continue
+        else:
+            np.savetxt('binary_array_' + str(i) + '.txt', binary_array, fmt='%d')
+
+
+def save_random_binary_image(img):
+    # Save image without overwriting existing generating images. We set the limit arbitrarily to 100.
+    for i in range(100):
+        if os.path.exists('random_binary_image_' + str(i) + '.png'):
+            continue
+        else:
+            cv2.imwrite('random_binary_image_' + str(i) + '.png', img)
+
+
+def save_reconstructed_binary_image(img):
+    for i in range(100):
+        if os.path.exists('reconstructed_binary_image_' + str(i) + '.png'):
+            continue
+        else:
+            cv2.imwrite('reconstructed_binary_image_' + str(i) + '.png', img)
+
+
 class BinaryImage:
 
     def __init__(self):
@@ -28,14 +53,7 @@ class BinaryImage:
         # Shuffle pixels, and reshape image
         np.random.shuffle(img)
         img = np.reshape(img, (self.config.GENOME_LENGTH, self.config.GENOME_LENGTH))
-
-        # Save image without overwriting existing generating images. We set the limit arbitrarily to 100.
-        for i in range(100):
-            if os.path.exists('random_binary_image_' + str(i) + '.png'):
-                continue
-            else:
-                cv2.imwrite('random_binary_image_' + str(i) + '.png', img)
-                return img
+        return img
 
     def binary_image_to_binary_array(self, img):
         """
@@ -57,13 +75,7 @@ class BinaryImage:
 
         # Convert the image to a binary array, without overwriting preexisting files. We set the limit arbitrarily to 100.
         binary_array = np_img.astype(int)
-        # print(binary_array)
-        for i in range(100):
-            if os.path.exists('binary_array_' + str(i) + '.txt'):
-                continue
-            else:
-                np.savetxt('binary_array_' + str(i) + '.txt', binary_array, fmt='%d')
-                return binary_array
+        return binary_array
 
     def binary_array_to_binary_image(self, binary_array):
         """
@@ -75,16 +87,13 @@ class BinaryImage:
         """
         # Convert the array to a sequence of numbers
         img = np.array(im.fromarray(binary_array * 255))
-        for i in range(100):
-            if os.path.exists('reconstructed_binary_image_' + str(i) + '.png'):
-                continue
-            else:
-                cv2.imwrite('reconstructed_binary_image_' + str(i) + '.png', img)
-                return img
+        return img
 
 
 def main():
-    return
+    bi = BinaryImage()
+    img = bi.create_random_binary_image()
+    print(bi.binary_image_to_binary_array(img))
 
 
 if __name__ == '__main__':

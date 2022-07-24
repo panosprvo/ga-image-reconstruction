@@ -1,7 +1,7 @@
 class Config:
     def __init__(self):
-        self.POPULATION = 200
-        self.GENOME_LENGTH = 32
+        self.POPULATION = 10
+        self.GENOME_LENGTH = 16
         self.MUTATION_PROBABILITY = 0.002
         self.ELITE_CARRY_OVER = 5
         self.IDEAL_FITNESS = 0

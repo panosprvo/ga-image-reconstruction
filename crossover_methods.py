@@ -2,6 +2,7 @@ import random
 
 import numpy as np
 
+from binary_image_generation import BinaryImage
 from config import *
 
 
@@ -49,7 +50,7 @@ class CrossoverMethod:
         """
         points = np.array([crossover_point_one, crossover_point_two])
 
-        # In case the random numbers generated are the same, rerun the method.
+        # In case the random numbers generated are the same, rerun.
         while crossover_point_one == crossover_point_two:
             self.double_point_crossover(genome_one, genome_two, crossover_point_one, crossover_point_two)
 
@@ -81,7 +82,22 @@ class CrossoverMethod:
 
 
 def main():
-    return
+    bi1 = BinaryImage()
+    img1 = bi1.create_random_binary_image()
+    array1 = bi1.binary_image_to_binary_array(img1)
+    par1 = np.ndarray.tolist(array1)
+    print(f"Parent1: {array1}")
+
+    bi2 = BinaryImage()
+    img2 = bi2.create_random_binary_image()
+    array2 = bi2.binary_image_to_binary_array(img2)
+    par2 = np.ndarray.tolist(array2)
+    print(f"Parent2: {array2}")
+
+    cross = CrossoverMethod()
+    kids = cross.uniform_crossover(par1, par2)
+    print(f"Child1: {kids[0]}")
+    print(f"Child2: {kids[1]}")
 
 
 if __name__ == '__main__':

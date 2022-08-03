@@ -56,7 +56,7 @@ class CrossoverMethod:
 
         for index in points:
             genome_one, genome_two = self.single_point_crossover(genome_one, genome_two, index)
-        offspring = [np.ndarray.tolist(genome_one), np.ndarray.tolist(genome_two)]
+        offspring = [genome_one, genome_two]
         return offspring
 
     def uniform_crossover(self, genome_one, genome_two):
@@ -93,7 +93,7 @@ def main():
     print(f"Parent2: {par2}")
 
     cross = CrossoverMethod()
-    kids = cross.single_point_crossover(par1, par2, 5)
+    kids = cross.double_point_crossover(par1, par2, 5, 10)
     print(f"Child1: {kids[0]}")
     print(f"Child2: {kids[1]}")
 

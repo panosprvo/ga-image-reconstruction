@@ -21,6 +21,7 @@ def test_create_random_binary_image2():
 
 def test_binary_image_to_binary_array1():
     binary_image = BinaryImage()
+    binary_image.config.GENOME_LENGTH = 32
     img = binary_image.create_random_binary_image()
     binary_array = binary_image.binary_image_to_binary_array(img)
     assert len(binary_array) == 32

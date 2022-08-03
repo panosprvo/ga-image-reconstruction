@@ -1,26 +1,28 @@
 import random
 
-from config import Config
+from config import *
 
 
 class InitialGeneration:
-
     def __init__(self):
         self.config = Config()
-        self.population = [[0] * self.config.GENOME_LENGTH for i in [1] * self.config.POPULATION]
 
     def initialise(self):
         """
-
-        :return:
+        Method to create the initial population for the algorithm.
+        :return: a 3D array
         """
+        population = [[0] * self.config.GENOME_LENGTH for i in [1] * self.config.POPULATION]
         for individual in range(self.config.POPULATION):
             for gene in range(self.config.GENOME_LENGTH):
-                self.population[individual][gene] = [random.randint(0, 1) for i in range(0, self.config.GENOME_LENGTH)]
+                population[individual][gene] = [random.randint(0, 1) for i in range(0, self.config.GENOME_LENGTH)]
+        return population
 
 
 def main():
-    return
+    pop = InitialGeneration()
+    population = pop.initialise()
+    print(population)
 
 
 if __name__ == '__main__':

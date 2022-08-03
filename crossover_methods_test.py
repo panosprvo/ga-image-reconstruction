@@ -32,9 +32,7 @@ def test_double_point_crossover1():
     crossover.config.GENOME_LENGTH = 6
     genome_one = [[0, 1, 1, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 1, 0, 0], [0, 0, 1, 0], [1, 1, 0, 1]]
     genome_two = [[1, 1, 1, 1], [0, 0, 1, 0], [1, 1, 0, 1], [1, 0, 0, 0], [0, 0, 0, 0], [1, 1, 1, 1]]
-    offspring = crossover.double_point_crossover(genome_one, genome_two,
-                                                 crossover.generate_random_crossover_point(),
-                                                 crossover.generate_random_crossover_point())
+    offspring = crossover.double_point_crossover(genome_one, genome_two, 1, 5)
     assert len(offspring) == 2
     assert len(offspring[0]) == 6
     assert len(offspring[1]) == 6

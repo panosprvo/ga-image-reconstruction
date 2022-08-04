@@ -1,3 +1,4 @@
+from helper import *
 from binary_image import *
 from population_generation import *
 from config import Config
@@ -7,17 +8,16 @@ class Fitness:
     def __init__(self):
         self.config = Config()
         self.fitness = self.config.GENOME_LENGTH * self.config.GENOME_LENGTH
+        self.individual_fitness = [None] * 10
 
-    def optimal_fitness_array(self, img):
+    def optimal_fitness_array(self):
         """
         This method is used to get the array of the image to be reconstructed. This is the array that will be used to
         compare each individual's array, therefore its fitness, while the algorithm is running.
 
-        :param img: a png file of the image to be reconstructed.
-
         :return: a 2d binary array.
         """
-        optimal_array = BinaryImage().open_original_image(img)
+        optimal_array = BinaryImage().open_original_image()
         return optimal_array
 
     def evaluate_fitness(self, optimal_array, individual_array):
@@ -44,15 +44,13 @@ def main():
     population = InitialGeneration().initialise()
     fitness = Fitness()
     image = BinaryImage()
-    original_image = image.open_original_image()
-    array1 = fitness.optimal_fitness_array(original_image)
-    individual_fitness = [None] * 10
+    array1 = fitness.optimal_fitness_array()
     for i in range(10):
-        individual_fitness[i] = fitness.evaluate_fitness(array1, population[i])
+        fitness.individual_fitness[i] = fitness.evaluate_fitness(array1, population[i])
         img = image.binary_array_to_binary_image(np.array(population[i]))
         save_binary_image(img)
-    print(f"Max fitness: {max(individual_fitness)}")
-    print(f"Min fitness: {min(individual_fitness)}")
+    print(f"Max fitness: {max(fitness.individual_fitness)}")
+    print(f"Min fitness: {min(fitness.individual_fitness)}")
 
 
 if __name__ == '__main__':

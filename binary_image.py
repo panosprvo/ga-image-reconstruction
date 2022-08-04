@@ -1,29 +1,8 @@
-from datetime import *
-import os
 import sys
 
-import cv2
 import numpy as np
 from PIL import Image as im
 from config import Config
-
-
-def save_binary_array(binary_array):
-    for i in range(100):
-        if os.path.exists(f"binary_array_{str(i)}.txt"):
-            continue
-        else:
-            np.savetxt(f"binary_array_{str(i)}.txt", binary_array, fmt='%d')
-            break
-
-
-def save_binary_image(img):
-    for i in range(100):
-        if os.path.exists(f"binary_image_{str(i)}_{datetime.now}.png"):
-            continue
-        else:
-            cv2.imwrite(f"binary_image_{str(i)}_{datetime.now}.png", img)
-            break
 
 
 class BinaryImage:
@@ -67,6 +46,8 @@ class BinaryImage:
     def open_original_image(self):
         """
         This method is used only to convert the original image to be reconstructed to a binary array.
+
+        :param image: original, binary 8bit image to be reconstructed by the algorithm.
 
         :return: binary 2D array.
         """

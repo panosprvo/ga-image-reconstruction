@@ -90,20 +90,18 @@ class BinaryImage:
         img = np.array(im.fromarray(binary_array * 255))
         return img
 
+    def open_original_image(self, image):
+        """
+
+        :param image: original, binary 8bit image to be reconstructed by the algorithm
+        :return: binary 2D array
+        """
+        img = im.open(image)
+        return self.binary_image_to_binary_array(img)
+
 
 def main():
-    bi = BinaryImage()
-
-    # img = bi.create_random_binary_image()
-    # save_random_binary_image(img)
-
-    # array = bi.binary_image_to_binary_array(img)
-
-    img = im.open("demo.png").convert('P')
-    array = bi.binary_image_to_binary_array(img)
-    print(array)
-    img = bi.binary_array_to_binary_image(np.array(array))
-    save_reconstructed_binary_image(img)
+    return
 
 
 if __name__ == '__main__':

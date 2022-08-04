@@ -1,4 +1,3 @@
-from helper import *
 from binary_image import *
 from population_generation import *
 from config import Config
@@ -8,7 +7,7 @@ class Fitness:
     def __init__(self):
         self.config = Config()
         self.fitness = self.config.GENOME_LENGTH * self.config.GENOME_LENGTH
-        self.individual_fitness = [None] * 10
+        self.individuals_fitness = [None] * self.config.POPULATION
 
     def optimal_fitness_array(self):
         """
@@ -46,11 +45,11 @@ def main():
     image = BinaryImage()
     array1 = fitness.optimal_fitness_array()
     for i in range(10):
-        fitness.individual_fitness[i] = fitness.evaluate_fitness(array1, population[i])
+        fitness.individuals_fitness[i] = fitness.evaluate_fitness(array1, population[i])
         img = image.binary_array_to_binary_image(np.array(population[i]))
-        save_binary_image(img)
-    print(f"Max fitness: {max(fitness.individual_fitness)}")
-    print(f"Min fitness: {min(fitness.individual_fitness)}")
+    print(f"Average fitness: {sum(fitness.individuals_fitness) / len(fitness.individuals_fitness)}")
+    print(f"Max fitness: {max(fitness.individuals_fitness)}")
+    print(f"Min fitness: {min(fitness.individuals_fitness)}")
 
 
 if __name__ == '__main__':

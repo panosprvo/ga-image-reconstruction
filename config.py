@@ -1,5 +1,6 @@
 class Config:
     def __init__(self):
+        self.GENERATIONS = 500
         self.POPULATION = 10
         self.GENOME_LENGTH = 32
         self.MUTATION_PROBABILITY = 0.002

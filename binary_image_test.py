@@ -1,6 +1,5 @@
 import numpy
-import config
-from binary_image_generation import *
+from binary_image import *
 
 
 def test_create_random_binary_image1():

@@ -8,27 +8,30 @@ from config import Config
 
 
 def save_binary_array(binary_array):
-    for i in range(100):
+    for i in range(10):
         if os.path.exists('binary_array_' + str(i) + '.txt'):
             continue
         else:
             np.savetxt('binary_array_' + str(i) + '.txt', binary_array, fmt='%d')
+            break
 
 
 def save_random_binary_image(img):
-    for i in range(100):
+    for i in range(10):
         if os.path.exists('random_binary_image_' + str(i) + '.png'):
             continue
         else:
             cv2.imwrite('random_binary_image_' + str(i) + '.png', img)
+            break
 
 
 def save_reconstructed_binary_image(img):
-    for i in range(100):
+    for i in range(10):
         if os.path.exists('reconstructed_binary_image_' + str(i) + '.png'):
             continue
         else:
             cv2.imwrite('reconstructed_binary_image_' + str(i) + '.png', img)
+            break
 
 
 class BinaryImage:
@@ -90,8 +93,17 @@ class BinaryImage:
 
 def main():
     bi = BinaryImage()
-    img = bi.create_random_binary_image()
-    print(bi.binary_image_to_binary_array(img))
+
+    # img = bi.create_random_binary_image()
+    # save_random_binary_image(img)
+
+    # array = bi.binary_image_to_binary_array(img)
+
+    img = im.open("demo.png").convert('P')
+    array = bi.binary_image_to_binary_array(img)
+    print(array)
+    img = bi.binary_array_to_binary_image(np.array(array))
+    save_reconstructed_binary_image(img)
 
 
 if __name__ == '__main__':

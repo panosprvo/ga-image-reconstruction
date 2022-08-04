@@ -3,7 +3,7 @@ import random
 
 import numpy as np
 
-from binary_image_generation import BinaryImage
+from binary_image import BinaryImage
 from config import Config
 
 

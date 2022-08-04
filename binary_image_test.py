@@ -4,6 +4,7 @@ from binary_image import *
 
 def test_create_random_binary_image1():
     binary_image = BinaryImage()
+    binary_image.config.GENOME_LENGTH = 16
     img = binary_image.create_random_binary_image()
     assert np.sum(img == 255) == 128
     assert np.sum(img == 0) == 128

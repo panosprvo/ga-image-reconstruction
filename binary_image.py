@@ -54,6 +54,23 @@ class BinaryImage:
         img = im.open("original_image.png")
         return self.binary_image_to_binary_array(img)
 
+    def create_random_binary_image(self):
+        """
+        A random binary image is generated with dimensions size * size and saved to file.
+        :return: a binary image.
+        """
+        # Generate black image (sequence)
+        img = np.zeros((self.config.GENOME_LENGTH * self.config.GENOME_LENGTH, 1), np.uint8)
+
+        # Determine number of white pixels, and set (=255 is white). We arbitrarily set the ratio of white to black
+        # pixels to be 50:50. At this point we have an image that is half black and half white.
+        img[0:int(self.config.WHITE_RATIO * self.config.GENOME_LENGTH * self.config.GENOME_LENGTH)] = 255
+
+        # Shuffle pixels, and reshape image
+        np.random.shuffle(img)
+        img = np.reshape(img, (self.config.GENOME_LENGTH, self.config.GENOME_LENGTH))
+        return img
+
 
 def main():
     return

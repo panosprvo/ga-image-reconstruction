@@ -43,11 +43,14 @@ class Fitness:
 def main():
     population = InitialGeneration().initialise()
     fitness = Fitness()
-    original_image = BinaryImage().open_original_image("original_image.png")
+    image = BinaryImage()
+    original_image = image.open_original_image()
     array1 = fitness.optimal_fitness_array(original_image)
-    individual_fitness = [None] * 200
-    for i in range(200):
+    individual_fitness = [None] * 10
+    for i in range(10):
         individual_fitness[i] = fitness.evaluate_fitness(array1, population[i])
+        img = image.binary_array_to_binary_image(np.array(population[i]))
+        save_binary_image(img)
     print(f"Max fitness: {max(individual_fitness)}")
     print(f"Min fitness: {min(individual_fitness)}")
 

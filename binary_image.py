@@ -1,3 +1,4 @@
+from datetime import *
 import os
 import sys
 
@@ -8,29 +9,20 @@ from config import Config
 
 
 def save_binary_array(binary_array):
-    for i in range(10):
-        if os.path.exists('binary_array_' + str(i) + '.txt'):
+    for i in range(100):
+        if os.path.exists(f"binary_array_{str(i)}.txt"):
             continue
         else:
-            np.savetxt('binary_array_' + str(i) + '.txt', binary_array, fmt='%d')
+            np.savetxt(f"binary_array_{str(i)}.txt", binary_array, fmt='%d')
             break
 
 
-# def save_random_binary_image(img):
-#     for i in range(10):
-#         if os.path.exists('random_binary_image_' + str(i) + '.png'):
-#             continue
-#         else:
-#             cv2.imwrite('random_binary_image_' + str(i) + '.png', img)
-#             break
-
-
-def save_reconstructed_binary_image(img):
-    for i in range(10):
-        if os.path.exists('reconstructed_binary_image_' + str(i) + '.png'):
+def save_binary_image(img):
+    for i in range(100):
+        if os.path.exists(f"binary_image_{str(i)}_{datetime.now}.png"):
             continue
         else:
-            cv2.imwrite('reconstructed_binary_image_' + str(i) + '.png', img)
+            cv2.imwrite(f"binary_image_{str(i)}_{datetime.now}.png", img)
             break
 
 
@@ -38,24 +30,6 @@ class BinaryImage:
 
     def __init__(self):
         self.config = Config()
-
-    # def create_random_binary_image(self):
-    #     """
-    #     A random binary image is generated with dimensions size * size and saved to file.
-    #
-    #     :return: a binary image.
-    #     """
-    #     # Generate black image (sequence)
-    #     img = np.zeros((self.config.GENOME_LENGTH * self.config.GENOME_LENGTH, 1), np.uint8)
-    #
-    #     # Determine number of white pixels, and set (=255 is white). We arbitrarily set the ratio of white to black
-    #     # pixels to be 50:50. At this point we have an image that is half black and half white.
-    #     img[0:int(self.config.WHITE_RATIO * self.config.GENOME_LENGTH * self.config.GENOME_LENGTH)] = 255
-    #
-    #     # Shuffle pixels, and reshape image
-    #     np.random.shuffle(img)
-    #     img = np.reshape(img, (self.config.GENOME_LENGTH, self.config.GENOME_LENGTH))
-    #     return img
 
     def binary_image_to_binary_array(self, img):
         """
@@ -90,11 +64,9 @@ class BinaryImage:
         img = np.array(im.fromarray(binary_array * 255))
         return img
 
-    def open_original_image(self, image):
+    def open_original_image(self):
         """
         This method is used only to convert the original image to be reconstructed to a binary array.
-
-        :param image: original, binary 8bit image to be reconstructed by the algorithm.
 
         :return: binary 2D array.
         """

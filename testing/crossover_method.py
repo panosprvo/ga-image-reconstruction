@@ -1,6 +1,6 @@
 import numpy
 
-from crossover_methods import *
+from crossover import *
 
 
 def test_single_point_crossover1():

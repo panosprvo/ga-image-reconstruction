@@ -3,7 +3,7 @@ import random
 from config import Config
 
 
-class Chromosome:
+class Genotype:
 
     def __init__(self):
         self.config = Config()
@@ -29,7 +29,8 @@ class Chromosome:
 
 
 def main():
-    return
+    gen = Genotype()
+    print(gen.genes)
 
 
 if __name__ == '__main__':

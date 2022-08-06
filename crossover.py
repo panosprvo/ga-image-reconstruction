@@ -75,9 +75,8 @@ class CrossoverMethod:
         for index in range(len(probability_matrix)):
             # Values less or greater than 0.5 can be considered here.
             if probability_matrix[index] < self.config.UNIFORM_PROBABILITY:
-                temp = genotype_one.genes[index]
-                genotype_one.genes[index] = genotype_two.genes[index]
-                genotype_two.genes[index] = temp
+                genotype_one.genes[index], genotype_two.genes[index] = \
+                    genotype_two.genes[index], genotype_one.genes[index]
         return [genotype_one, genotype_two]
 
 

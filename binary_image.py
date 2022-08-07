@@ -3,6 +3,7 @@ import sys
 import numpy as np
 from PIL import Image as im
 from config import Config
+from genotype import Genotype
 
 
 class BinaryImage:
@@ -47,12 +48,13 @@ class BinaryImage:
         """
         This method is used only to convert the original image to be reconstructed to a binary array.
 
-        :param image: original, binary 8bit image to be reconstructed by the algorithm.
-
-        :return: binary 2D array.
+        :return: a Genotype object.
         """
         img = im.open("original_image.png")
-        return self.binary_image_to_binary_array(img)
+        optimal_array = self.binary_image_to_binary_array(img)
+        optimal_individual = Genotype()
+        optimal_individual.genes = optimal_array
+        return optimal_individual
 
     def create_random_binary_image(self):
         """

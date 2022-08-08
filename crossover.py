@@ -1,13 +1,16 @@
+# --------------------------------------------
+# 2022, Panagiotis Provias, London, U.K.
+# email: panayiotisprovias@gmail.com
+# --------------------------------------------
 import random
 
 import numpy as np
 
-from binary_image import BinaryImage
 from config import *
 from genotype import Genotype
 
 
-class CrossoverMethod:
+class Crossover:
     def __init__(self):
         self.config = Config()
 
@@ -30,13 +33,9 @@ class CrossoverMethod:
 
         :return: an array consisting of two Genotype objects (i.e., the two offspring).
         """
-        child_one_genotype = genotype_one.genes[:crossover_point] + genotype_two.genes[crossover_point:]
-        child_two_genotype = genotype_two.genes[:crossover_point] + genotype_one.genes[crossover_point:]
-        child_one = Genotype()
-        child_one.genes = child_one_genotype
-        child_two = Genotype()
-        child_two.genes = child_two_genotype
-        return [child_one, child_two]
+        genotype_one.genes, genotype_two.genes = genotype_one.genes[:crossover_point] + genotype_two.genes[crossover_point:], \
+                                     genotype_two.genes[:crossover_point] + genotype_one.genes[crossover_point:]
+        return [genotype_one, genotype_two]
 
     def double_point_crossover(self, genotype_one, genotype_two, crossover_point_one, crossover_point_two):
         """
@@ -53,8 +52,8 @@ class CrossoverMethod:
         points = [crossover_point_one, crossover_point_two]
 
         # In case the random numbers generated are the same, rerun.
-        while crossover_point_one == crossover_point_two:
-            self.double_point_crossover(genotype_one, genotype_two, crossover_point_one, crossover_point_two)
+        # while crossover_point_one == crossover_point_two:
+        #     self.double_point_crossover(genotype_one, genotype_two, crossover_point_one, crossover_point_two)
 
         for index in points:
             genotype_one, genotype_two = self.single_point_crossover(genotype_one, genotype_two, index)
@@ -81,16 +80,7 @@ class CrossoverMethod:
 
 
 def main():
-    par1 = Genotype()
-    par2 = Genotype()
-    print(f"Parent1: {par1.genes}")
-    print(f"Parent2: {par2.genes}")
-
-    cross = CrossoverMethod()
-    kids = cross.uniform_crossover(par1, par2)
-    print(f"Child1: {kids[0].genes}")
-    print(f"Child2: {kids[1].genes}")
-    print(type(kids[0]))
+    return
 
 
 if __name__ == '__main__':

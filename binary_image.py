@@ -41,7 +41,7 @@ class BinaryImage:
         :return: a binary image.
         """
         # Convert the array to a sequence of numbers
-        img = np.array(im.fromarray(binary_array * 255))
+        img = np.array(im.fromarray(np.asarray(binary_array) * 255))
         return img
 
     def open_original_image(self):

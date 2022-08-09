@@ -25,4 +25,5 @@ def save_binary_image(img, index):
 
     :return: png file.
     """
-    cv2.imwrite(f"binary_image_{str(index)}.png", img)
+    path = 'C:/Users/panos/Desktop/msc-computer-science-project/images'
+    cv2.imwrite(os.path.join(path, f"binary_image_{str(index)}.png"), img)

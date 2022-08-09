@@ -18,6 +18,7 @@ class Algorithm:
         self.config = Config()
         # ======================= Initialise the first generation =====================================================
         self.population = InitialGeneration().initialise()
+        self.current_generation = []
 
     def run_algorithm(self):
         """
@@ -43,17 +44,18 @@ class Algorithm:
         optimal_genotype = fitness.optimal_fitness_genotype()
 
         # ======================= Algorithm loop ======================================================================
+        maximum_algorithmic_fitness = 0
         for generation in range(self.config.GENERATIONS):
             print(f"Running generation: {generation + 1}")
-            current_generation = self.population
+            self.current_generation = self.population
             next_generation = []
 
         # ======================= Evaluate fitness for each individual ================================================
-            for individual in current_generation:
+            for individual in self.current_generation:
                 fitness.evaluate_fitness(optimal_genotype, individual)
 
         # ======================= Seek elites in population ===========================================================
-            elites = elitism.find_elites(current_generation)
+            elites = elitism.find_elites(self.current_generation)
             for elite in elites:
                 next_generation.append(copy.deepcopy(elite))
 
@@ -65,8 +67,8 @@ class Algorithm:
             # parent_one and parent_two, which will produce offspring_one and offspring_two
 
             for i in range(int((self.config.POPULATION - self.config.ELITE_CARRY_OVER) / 2)):
-                parent_one = selection.roulette_selection(current_generation)
-                parent_two = selection.roulette_selection(current_generation)
+                parent_one = selection.roulette_selection(self.current_generation)
+                parent_two = selection.roulette_selection(self.current_generation)
 
         # ======================= Crossover ===========================================================================
                 if crossover_operator == 1:
@@ -88,6 +90,9 @@ class Algorithm:
                 individual.mutation()
 
         # ======================= Population fitness evaluation =======================================================
+            if fitness.get_max_fitness(next_generation) > maximum_algorithmic_fitness:
+                maximum_algorithmic_fitness = fitness.get_max_fitness(next_generation)
+
             if fitness.fitness_to_reach == fitness.get_max_fitness(next_generation):
                 print(f"Maximum fitness has been reached after {generation + 1} generations!")
                 top_individual = fitness.max_fitness_genotype(next_generation)
@@ -96,15 +101,15 @@ class Algorithm:
                 break
             else:
                 print(f"Max fitness in current population(generation {generation + 1}) is "
-                      f"{fitness.get_max_fitness(next_generation)}")
+                      f"{fitness.get_max_fitness(next_generation)}\n")
                 if generation % 20 == 0:
                     top_individual = fitness.max_fitness_genotype(next_generation)
                     image = imaging.binary_array_to_binary_image(top_individual.genes)
                     helper.save_binary_image(image, generation)
         # ======================= Prepare for next iteration ==========================================================
             self.population = next_generation
-            print("Press any button when you are ready to run the next iteration of the algorithm.\n")
-            # input("Press Enter to continue...")
+            self.current_generation = []
+        print(f"Maximum fitness for the run: {maximum_algorithmic_fitness}")
 
 
 def main():

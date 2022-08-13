@@ -1,4 +1,9 @@
-from population_generation import *
+# --------------------------------------------
+# 2022, Panagiotis Provias, London, U.K.
+# email: panayiotisprovias@gmail.com
+# --------------------------------------------
+
+from initial_generation import *
 
 
 def test_population_generation1():

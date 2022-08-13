@@ -1,4 +1,8 @@
-import random
+# --------------------------------------------
+# 2022, Panagiotis Provias, London, U.K.
+# email: panayiotisprovias@gmail.com
+# --------------------------------------------
+
 import genotype
 
 from config import *
@@ -17,14 +21,3 @@ class InitialGeneration:
         for individual in range(self.config.POPULATION):
             population[individual] = genotype.Genotype()
         return population
-
-
-def main():
-    pop = InitialGeneration()
-    population = pop.initialise()
-    for i in range(200):
-        print(population[i].genes)
-
-
-if __name__ == '__main__':
-    main()

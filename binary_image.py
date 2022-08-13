@@ -1,3 +1,8 @@
+# --------------------------------------------
+# 2022, Panagiotis Provias, London, U.K.
+# email: panayiotisprovias@gmail.com
+# --------------------------------------------
+
 import sys
 
 import numpy as np
@@ -72,11 +77,3 @@ class BinaryImage:
         np.random.shuffle(img)
         img = np.reshape(img, (self.config.GENOME_LENGTH, self.config.GENOME_LENGTH))
         return img
-
-
-def main():
-    return
-
-
-if __name__ == '__main__':
-    main()

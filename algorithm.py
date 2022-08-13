@@ -1,3 +1,8 @@
+# --------------------------------------------
+# 2022, Panagiotis Provias, London, U.K.
+# email: panayiotisprovias@gmail.com
+# --------------------------------------------
+
 import copy
 import time
 
@@ -6,7 +11,7 @@ from binary_image import BinaryImage
 from config import Config
 from crossover import Crossover
 from elitism import Elitism
-from population_generation import InitialGeneration
+from initial_generation import InitialGeneration
 from fitness import Fitness
 from selection import Selection
 

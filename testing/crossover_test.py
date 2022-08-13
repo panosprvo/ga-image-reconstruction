@@ -1,3 +1,8 @@
+# --------------------------------------------
+# 2022, Panagiotis Provias, London, U.K.
+# email: panayiotisprovias@gmail.com
+# --------------------------------------------
+
 from crossover import *
 
 

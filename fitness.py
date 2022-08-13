@@ -1,6 +1,9 @@
+# --------------------------------------------
+# 2022, Panagiotis Provias, London, U.K.
+# email: panayiotisprovias@gmail.com
+# --------------------------------------------
+
 from binary_image import *
-from genotype import Genotype
-from population_generation import *
 from config import Config
 
 
@@ -58,22 +61,3 @@ class Fitness:
         """
         population.sort(key=lambda x: x.fitness, reverse=True)
         return population[0]
-
-
-def main():
-    population = InitialGeneration().initialise()
-    fitness = Fitness()
-    genes = fitness.optimal_fitness_genotype()
-    optimal_array = Genotype()
-    optimal_array.genes = genes
-
-    for i in range(10):
-        fitness.evaluate_fitness(optimal_array, population[i])
-        print(population[i].fitness_to_reach)
-    print(f"Average fitness: {sum(i.fitness_to_reach for i in population) / 10}")
-    print(f"Max fitness: {max(i.fitness_to_reach for i in population)}")
-    print(f"Min fitness: {min(i.fitness_to_reach for i in population)}")
-
-
-if __name__ == '__main__':
-    main()

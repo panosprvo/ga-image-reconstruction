@@ -1,5 +1,10 @@
+# --------------------------------------------
+# 2022, Panagiotis Provias, London, U.K.
+# email: panayiotisprovias@gmail.com
+# --------------------------------------------
+
 from elitism import Elitism
-from population_generation import InitialGeneration
+from initial_generation import InitialGeneration
 
 
 def test_find_elites1():

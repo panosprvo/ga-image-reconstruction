@@ -1,3 +1,8 @@
+# --------------------------------------------
+# 2022, Panagiotis Provias, London, U.K.
+# email: panayiotisprovias@gmail.com
+# --------------------------------------------
+
 import random
 
 from config import Config
@@ -26,12 +31,3 @@ class Genotype:
         if gene == 0:
             return 1
         return 0
-
-
-def main():
-    gen = Genotype()
-    print(gen.genes)
-
-
-if __name__ == '__main__':
-    main()

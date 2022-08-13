@@ -2,12 +2,12 @@
 # 2022, Panagiotis Provias, London, U.K.
 # email: panayiotisprovias@gmail.com
 # --------------------------------------------
+
 import random
 
 import numpy as np
 
 from config import *
-from genotype import Genotype
 
 
 class Crossover:
@@ -77,11 +77,3 @@ class Crossover:
                 genotype_one.genes[index], genotype_two.genes[index] = \
                     genotype_two.genes[index], genotype_one.genes[index]
         return [genotype_one, genotype_two]
-
-
-def main():
-    return
-
-
-if __name__ == '__main__':
-    main()

@@ -1,3 +1,8 @@
+# --------------------------------------------
+# 2022, Panagiotis Provias, London, U.K.
+# email: panayiotisprovias@gmail.com
+# --------------------------------------------
+
 from config import Config
 
 
@@ -26,11 +31,3 @@ class Elitism:
         for index in elites_indices:
             elites.append(population[index])
         return elites
-
-
-def main():
-    return
-
-
-if __name__ == '__main__':
-    main()

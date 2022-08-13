@@ -1,6 +1,5 @@
 import copy
-
-import cv2
+import time
 
 import helper
 from binary_image import BinaryImage
@@ -45,6 +44,10 @@ class Algorithm:
 
         # ======================= Algorithm loop ======================================================================
         maximum_algorithmic_fitness = 0
+
+        start_time = time.time()
+        f = open("algorithm_log.txt", "a")
+
         for generation in range(self.config.GENERATIONS):
             print(f"Running generation: {generation + 1}")
             self.current_generation = self.population
@@ -106,10 +109,33 @@ class Algorithm:
                     top_individual = fitness.max_fitness_genotype(next_generation)
                     image = imaging.binary_array_to_binary_image(top_individual.genes)
                     helper.save_binary_image(image, generation)
+
         # ======================= Prepare for next iteration ==========================================================
             self.population = next_generation
             self.current_generation = []
+
         print(f"Maximum fitness for the run: {maximum_algorithmic_fitness}")
+
+        # ======================= Update algorithm log ================================================================
+        end_time = time.time()
+        total_runtime = "%.2f" % (end_time - start_time)
+        time_of_run = time.strftime("%d%m%Y-%H%M%S")
+
+        reach_global_optimum = "No"
+        if fitness.fitness_to_reach == fitness.get_max_fitness(next_generation):
+            reach_global_optimum = 'Yes'
+
+        f.write(f"{time_of_run}\n")
+        f.write(f"Did the algorithm reach maximum fitness? : {reach_global_optimum}\n")
+        f.write(f"Crossover method used: {str(crossover_operator)}\n")
+        f.write(f"Population size: {self.config.POPULATION}\n")
+        f.write(f"Number of generations: {self.config.GENERATIONS}\n")
+        f.write(f"Mutation probability: {self.config.MUTATION_PROBABILITY}\n")
+        f.write(f"Number of elites in each generation: {self.config.ELITE_CARRY_OVER}\n")
+        f.write(f"Maximum fitness reached: {maximum_algorithmic_fitness}/{fitness.fitness_to_reach}\n")
+        f.write(f"Total runtime: {total_runtime} seconds\n")
+        f.write("\n")
+        f.close()
 
 
 def main():

@@ -4,6 +4,7 @@
 # --------------------------------------------
 
 from crossover import *
+from genotype import Genotype
 
 
 def test_single_point_crossover1():

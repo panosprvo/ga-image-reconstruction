@@ -4,14 +4,14 @@
 # --------------------------------------------
 
 import os
-
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 def save_binary_array(binary_array, index):
     """
-    Helper method that saves a binary array in a txt file.
+    Helper function that saves a binary array in a txt file.
 
     :param index: int. Used to number an array that's being saved.
     :param binary_array: a 2d array.
@@ -23,7 +23,7 @@ def save_binary_array(binary_array, index):
 
 def save_binary_image(img, index):
     """
-    Helper method that saves a binary image as a png file.
+    Helper function that saves a binary image as a png file.
 
     :param index: int. Used to number an image that's being saved.
     :param img: a binary image.
@@ -32,3 +32,29 @@ def save_binary_image(img, index):
     """
     path = 'C:/Users/panos/Desktop/msc-computer-science-project/images'
     cv2.imwrite(os.path.join(path, f"binary_image_{str(index)}.png"), img)
+
+
+def create_plot(generation_list, fitness_list):
+    """
+    Helper function that creates and saves a plot.
+
+    :param generation_list: a list holding numbers of all generations.
+    :param fitness_list: a list holding the maximum fitness of each generation.
+
+    :return: a plot.
+    """
+    plt.plot(generation_list, fitness_list, color='aquamarine')
+    plt.xlabel("Generation")
+    plt.ylabel("Fitness")
+    plt.title("Maximum fitness per generation")
+    path = 'C:/Users/panos/Desktop/msc-computer-science-project/images/plot.png'
+    plt.savefig(path)
+    plt.show()
+
+
+def main():
+    return
+
+
+if __name__ == '__main__':
+    main()

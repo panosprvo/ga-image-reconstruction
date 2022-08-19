@@ -26,8 +26,9 @@ class Algorithm:
 
     def run_algorithm(self):
         """
+        The method that runs the algorithm.
 
-        :return:
+        :return: prints results in terminal, and saves images and graphs for each run.
         """
         imaging = BinaryImage()
         fitness = Fitness()
@@ -49,11 +50,15 @@ class Algorithm:
 
         # ======================= Algorithm loop ======================================================================
         maximum_algorithmic_fitness = 0
+        max_fitness_in_generation = 0
 
         start_time = time.time()
         f = open("algorithm_log.txt", "a")
 
+        generation_list = []
+        fitness_list = []
         for generation in range(self.config.GENERATIONS):
+            generation_list.append(generation)
             print(f"Running generation: {generation + 1}")
             self.current_generation = self.population
             next_generation = []
@@ -79,16 +84,7 @@ class Algorithm:
                 parent_two = selection.roulette_selection(self.current_generation)
 
         # ======================= Crossover ===========================================================================
-                if crossover_operator == 1:
-                    crossover_point = crossover.generate_random_crossover_point()
-                    children = crossover.single_point_crossover(parent_one, parent_two, crossover_point)
-                elif crossover_operator == 2:
-                    crossover_point_one = crossover.generate_random_crossover_point()
-                    crossover_point_two = crossover.generate_random_crossover_point()
-                    children = crossover.double_point_crossover(parent_one, parent_two,
-                                                                crossover_point_one, crossover_point_two)
-                else:
-                    children = crossover.uniform_crossover(parent_one, parent_two)
+                children = crossover.do_crossover(parent_one, parent_two, crossover_operator)
 
                 for child in children:
                     next_generation.append(copy.deepcopy(child))
@@ -98,38 +94,42 @@ class Algorithm:
                 individual.mutation()
 
         # ======================= Population fitness evaluation =======================================================
+            # Update maximum fitness for the run of the algorithm.
+            max_fitness_in_generation = fitness.get_max_fitness(next_generation)
             if fitness.get_max_fitness(next_generation) > maximum_algorithmic_fitness:
-                maximum_algorithmic_fitness = fitness.get_max_fitness(next_generation)
+                maximum_algorithmic_fitness = max_fitness_in_generation
 
-            if fitness.fitness_to_reach == fitness.get_max_fitness(next_generation):
+            # Finish if algorithm has reached optimum fitness.
+            if fitness.fitness_to_reach == max_fitness_in_generation:
                 print(f"Maximum fitness has been reached after {generation + 1} generations!")
                 top_individual = fitness.max_fitness_genotype(next_generation)
                 image = imaging.binary_array_to_binary_image(top_individual.genes)
                 helper.save_binary_image(image, generation)
                 break
             else:
+                # Display maximum fitness for the generation and save an image every 50 generations.
                 print(f"Max fitness in current population(generation {generation + 1}) is "
-                      f"{fitness.get_max_fitness(next_generation)}\n")
-                if generation % 20 == 0:
+                      f"{max_fitness_in_generation}\n")
+                if generation % 50 == 0:
                     top_individual = fitness.max_fitness_genotype(next_generation)
                     image = imaging.binary_array_to_binary_image(top_individual.genes)
                     helper.save_binary_image(image, generation)
+            fitness_list.append(max_fitness_in_generation)
 
         # ======================= Prepare for next iteration ==========================================================
             self.population = next_generation
             self.current_generation = []
 
         print(f"Maximum fitness for the run: {maximum_algorithmic_fitness}")
+        helper.create_plot(generation_list, fitness_list)
 
         # ======================= Update algorithm log ================================================================
         end_time = time.time()
         total_runtime = "%.2f" % (end_time - start_time)
         time_of_run = time.strftime("%d%m%Y-%H%M%S")
-
         reach_global_optimum = "No"
-        if fitness.fitness_to_reach == fitness.get_max_fitness(next_generation):
+        if fitness.fitness_to_reach == max_fitness_in_generation:
             reach_global_optimum = 'Yes'
-
         f.write(f"{time_of_run}\n")
         f.write(f"Did the algorithm reach maximum fitness? : {reach_global_optimum}\n")
         f.write(f"Crossover method used: {str(crossover_operator)}\n")
@@ -144,8 +144,7 @@ class Algorithm:
 
 
 def main():
-    algorithm = Algorithm()
-    algorithm.run_algorithm()
+    Algorithm().run_algorithm()
 
 
 if __name__ == '__main__':

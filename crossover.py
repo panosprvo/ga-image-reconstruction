@@ -52,8 +52,10 @@ class Crossover:
         points = [crossover_point_one, crossover_point_two]
 
         # In case the random numbers generated are the same, rerun.
-        # while crossover_point_one == crossover_point_two:
-        #     self.double_point_crossover(genotype_one, genotype_two, crossover_point_one, crossover_point_two)
+        while crossover_point_one == crossover_point_two:
+            crossover_point_one = self.generate_random_crossover_point()
+            crossover_point_two = self.generate_random_crossover_point()
+            self.double_point_crossover(genotype_one, genotype_two, crossover_point_one, crossover_point_two)
 
         for index in points:
             genotype_one, genotype_two = self.single_point_crossover(genotype_one, genotype_two, index)
@@ -77,3 +79,25 @@ class Crossover:
                 genotype_one.genes[index], genotype_two.genes[index] = \
                     genotype_two.genes[index], genotype_one.genes[index]
         return [genotype_one, genotype_two]
+
+    def do_crossover(self, parent_one, parent_two, crossover_operator):
+        """
+        Method that returns the children after crossover of two parents selected for reproduction.
+
+        :param parent_two: a Genotype object.
+        :param parent_one: a Genotype object.
+        :param crossover_operator: int.
+
+        :return: a list of two Genotype objects.
+        """
+        if crossover_operator == 1:
+            crossover_point = self.generate_random_crossover_point()
+            children = self.single_point_crossover(parent_one, parent_two, crossover_point)
+        elif crossover_operator == 2:
+            crossover_point_one = self.generate_random_crossover_point()
+            crossover_point_two = self.generate_random_crossover_point()
+            children = self.double_point_crossover(parent_one, parent_two,
+                                                        crossover_point_one, crossover_point_two)
+        else:
+            children = self.uniform_crossover(parent_one, parent_two)
+        return children

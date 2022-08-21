@@ -45,7 +45,7 @@ def create_plot(generation_list, fitness_list, crossover_operator):
 
     :return: a plot.
     """
-    plt.plot(generation_list, fitness_list, color="aquamarine")
+    plt.plot(generation_list, fitness_list)
     plt.xlabel("Generation")
     plt.ylabel("Fitness")
     path = f"C:/Users/panos/Desktop/msc-computer-science-project/images/{crossover_operator}_plot.png"

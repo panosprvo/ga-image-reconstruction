@@ -10,9 +10,9 @@ import numpy as np
 from config import *
 
 
-class Crossover:
+class Crossover(Config):
     def __init__(self):
-        self.config = Config()
+        super().__init__()
 
     def generate_random_crossover_point(self):
         """
@@ -20,7 +20,7 @@ class Crossover:
 
         :return: int
         """
-        return random.randint(1, self.config.GENOME_LENGTH - 1)
+        return random.randint(1, self.GENOME_LENGTH - 1)
 
     def single_point_crossover(self, genotype_one, genotype_two, crossover_point):
         """
@@ -33,8 +33,10 @@ class Crossover:
 
         :return: an array consisting of two Genotype objects (i.e., the two offspring).
         """
-        genotype_one.genes, genotype_two.genes = genotype_one.genes[:crossover_point] + genotype_two.genes[crossover_point:], \
-                                     genotype_two.genes[:crossover_point] + genotype_one.genes[crossover_point:]
+        genotype_one.genes, genotype_two.genes = genotype_one.genes[:crossover_point] + genotype_two.genes[
+                                                                                        crossover_point:], \
+                                                 genotype_two.genes[:crossover_point] + genotype_one.genes[
+                                                                                        crossover_point:]
         return [genotype_one, genotype_two]
 
     def double_point_crossover(self, genotype_one, genotype_two, crossover_point_one, crossover_point_two):
@@ -72,10 +74,10 @@ class Crossover:
         :return: an array consisting of two Genotype objects (i.e., the two offspring).
         """
         # Generate the probability matrix
-        probability_matrix = np.random.rand(self.config.GENOME_LENGTH)
+        probability_matrix = np.random.rand(self.GENOME_LENGTH)
         for index in range(len(probability_matrix)):
             # Values less or greater than 0.5 can be considered here.
-            if probability_matrix[index] < self.config.UNIFORM_PROBABILITY:
+            if probability_matrix[index] < self.UNIFORM_PROBABILITY:
                 genotype_one.genes[index], genotype_two.genes[index] = \
                     genotype_two.genes[index], genotype_one.genes[index]
         return [genotype_one, genotype_two]
@@ -97,7 +99,7 @@ class Crossover:
             crossover_point_one = self.generate_random_crossover_point()
             crossover_point_two = self.generate_random_crossover_point()
             children = self.double_point_crossover(parent_one, parent_two,
-                                                        crossover_point_one, crossover_point_two)
+                                                   crossover_point_one, crossover_point_two)
         else:
             children = self.uniform_crossover(parent_one, parent_two)
         return children

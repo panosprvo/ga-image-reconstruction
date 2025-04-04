@@ -6,10 +6,10 @@
 from config import Config
 
 
-class Elitism:
+class Elitism(Config):
 
     def __init__(self):
-        self.config = Config()
+        super().__init__()
 
     def find_elites(self, population):
         """
@@ -26,7 +26,7 @@ class Elitism:
         for individual in population:
             fitness.append(individual.fitness)
         elites_indices = sorted(range(len(fitness)),
-                                key=lambda i: fitness[i])[-self.config.ELITE_CARRY_OVER:]
+                                key=lambda i: fitness[i])[-self.ELITE_CARRY_OVER:]
 
         for index in elites_indices:
             elites.append(population[index])

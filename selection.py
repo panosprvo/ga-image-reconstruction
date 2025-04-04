@@ -8,10 +8,10 @@ import numpy.random as npr
 from config import Config
 
 
-class Selection:
+class Selection(Config):
 
     def __init__(self):
-        self.config = Config()
+        super().__init__()
 
     def roulette_selection(self, population):
         """

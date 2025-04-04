@@ -7,10 +7,10 @@ from binary_image import *
 from config import Config
 
 
-class Fitness:
+class Fitness(Config):
     def __init__(self):
-        self.config = Config()
-        self.fitness_to_reach = self.config.GENOME_LENGTH * self.config.GENOME_LENGTH
+        super().__init__()
+        self.fitness_to_reach = self.GENOME_LENGTH * self.GENOME_LENGTH
 
     def optimal_fitness_genotype(self):
         """
@@ -34,8 +34,8 @@ class Fitness:
         :return: change an individual's fitness (void method).
         """
         individual_genotype.fitness = self.fitness_to_reach
-        for i in range(self.config.GENOME_LENGTH):
-            for j in range(self.config.GENOME_LENGTH):
+        for i in range(self.GENOME_LENGTH):
+            for j in range(self.GENOME_LENGTH):
                 if optimal_genotype.genes[i][j] == individual_genotype.genes[i][j]:
                     continue
                 else:

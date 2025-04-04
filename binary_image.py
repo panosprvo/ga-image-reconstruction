@@ -11,10 +11,10 @@ from config import Config
 from genotype import Genotype
 
 
-class BinaryImage:
+class BinaryImage(Config):
 
     def __init__(self):
-        self.config = Config()
+        super().__init__()
 
     def binary_image_to_binary_array(self, img):
         """
@@ -67,13 +67,13 @@ class BinaryImage:
         :return: a binary image.
         """
         # Generate black image (sequence)
-        img = np.zeros((self.config.GENOME_LENGTH * self.config.GENOME_LENGTH, 1), np.uint8)
+        img = np.zeros((self.GENOME_LENGTH * self.GENOME_LENGTH, 1), np.uint8)
 
         # Determine number of white pixels, and set (=255 is white). We arbitrarily set the ratio of white to black
         # pixels to be 50:50. At this point we have an image that is half black and half white.
-        img[0:int(self.config.WHITE_RATIO * self.config.GENOME_LENGTH * self.config.GENOME_LENGTH)] = 255
+        img[0:int(self.WHITE_RATIO * self.GENOME_LENGTH * self.GENOME_LENGTH)] = 255
 
         # Shuffle pixels, and reshape image
         np.random.shuffle(img)
-        img = np.reshape(img, (self.config.GENOME_LENGTH, self.config.GENOME_LENGTH))
+        img = np.reshape(img, (self.GENOME_LENGTH, self.GENOME_LENGTH))
         return img

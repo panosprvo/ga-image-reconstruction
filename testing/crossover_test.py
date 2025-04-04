@@ -9,7 +9,7 @@ from genotype import Genotype
 
 def test_single_point_crossover1():
     crossover = Crossover()
-    crossover.config.GENOME_LENGTH = 4
+    Config().GENOME_LENGTH = 4
     genotype_one = Genotype()
     genotype_one.genes = [[0, 1, 1, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 1, 0, 0]]
     genotype_two = Genotype()
@@ -22,7 +22,7 @@ def test_single_point_crossover1():
 
 def test_single_point_crossover2():
     crossover = Crossover()
-    crossover.config.GENOME_LENGTH = 6
+    crossover.GENOME_LENGTH = 6
     genotype_one = Genotype()
     genotype_one.genes = [[0, 1, 1, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 1, 0, 0], [0, 0, 1, 0], [1, 1, 0, 1]]
     genotype_two = Genotype()
@@ -35,7 +35,7 @@ def test_single_point_crossover2():
 
 def test_double_point_crossover1():
     crossover = Crossover()
-    crossover.config.GENOME_LENGTH = 6
+    crossover.GENOME_LENGTH = 6
     genotype_one = Genotype()
     genotype_one.genes = [[0, 1, 1, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 1, 0, 0], [0, 0, 1, 0], [1, 1, 0, 1]]
     genotype_two = Genotype()
@@ -48,7 +48,7 @@ def test_double_point_crossover1():
 
 def test_double_point_crossover2():
     crossover = Crossover()
-    crossover.config.GENOME_LENGTH = 6
+    crossover.GENOME_LENGTH = 6
     genotype_one = Genotype()
     genotype_one.genes = [[0, 1, 1, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 1, 0, 0], [0, 0, 1, 0], [1, 1, 0, 1]]
     genotype_two = Genotype()
@@ -61,7 +61,7 @@ def test_double_point_crossover2():
 
 def test_uniform_crossover():
     crossover = Crossover()
-    crossover.config.GENOME_LENGTH = 6
+    crossover.GENOME_LENGTH = 6
     genotype_one = Genotype()
     genotype_one.genes = [[0, 1, 1, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 1, 0, 0], [0, 0, 1, 0], [1, 1, 0, 1]]
     genotype_two = Genotype()

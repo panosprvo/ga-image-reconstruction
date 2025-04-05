@@ -1,4 +1,4 @@
-##Genetic Algorithms and Image Reconstruction: how different recombination mechanisms impact algorithmic performance
+## Genetic Algorithms and Image Reconstruction: How Different Recombination Mechanisms Impact Algorithmic Performance
 
 > This project was part of my Computer Science MSc course at Birkbeck, UoL.
 > It was the final project submitted as part of my final dissertation. 
@@ -16,7 +16,7 @@ algorithm in Python for the purpose of reconstructing binary images. The effects
 of three different recombination, or crossover,  methods –namely the single-point,
 double-point, and uniform crossover methods—will be analysed on algorithmic performance.
 
-###Key features
+### Key features
 The way I've structured this project it provides two key features:
 1. generate binary images per X number of generations (this depends on how often we want
 images saved, e.g., save one image per 10 generations). For this feature I used the Python
@@ -24,7 +24,7 @@ Imaging Library (`PIL`).
 2. generate graphs that depict the fitness/performance of the population using the
 specified crossover method. For this feature I used the `matplotlib` library.
 
-###Getting started
+### Getting started
 First you need to provide the algorithm with a binary image (i.e., black and white) as the
 original image (`original_image.png`). This will be the expected result (aka maximum fitness
 to be reached by the population). You can use any *simple* image for this purpose, and convert that 

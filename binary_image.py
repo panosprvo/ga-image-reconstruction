@@ -46,8 +46,9 @@ class BinaryImage(Config):
         :return: a binary image.
         """
         # Convert the array to a sequence of numbers
-        img = np.array(im.fromarray(np.asarray(binary_array) * 255))
-        return img
+        img_array = (np.asarray(binary_array) * 255).astype(np.uint8)  # Convert binary (0,1) to grayscale (0,255)
+        img = im.fromarray(img_array)  # Convert NumPy array to an image
+        return np.array(img)
 
     def open_original_image(self):
         """

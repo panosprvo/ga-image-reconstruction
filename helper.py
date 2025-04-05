@@ -2,11 +2,14 @@
 # 2022, Panagiotis Provias, London, U.K.
 # email: panayiotisprovias@gmail.com
 # --------------------------------------------
+import matplotlib
 
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from pathlib import Path
 import os
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 
 
 def save_binary_array(binary_array, index):
@@ -31,8 +34,10 @@ def save_binary_image(img, index, crossover_operator):
 
     :return: png file.
     """
-    path = 'C:/Users/panos/Desktop/msc-computer-science-project/images'
-    cv2.imwrite(os.path.join(path, f"{crossover_operator}_binary_image_{str(index)}.png"), img)
+    path = os.path.join(os.getcwd(), "images")  # Save in the script's directory
+    os.makedirs(path, exist_ok=True)  # Ensure the directory exists
+    filename = os.path.join(path, f"{crossover_operator}_binary_image_{index}.png")
+    cv2.imwrite(filename, img)
 
 
 def create_plot(generation_list, fitness_list, crossover_operator):
@@ -48,6 +53,7 @@ def create_plot(generation_list, fitness_list, crossover_operator):
     plt.plot(generation_list, fitness_list)
     plt.xlabel("Generation")
     plt.ylabel("Fitness")
-    path = f"/Users/panos/dev/msc-computer-science-project/images/{crossover_operator}_plot.png"
+    current_dir = Path(__file__).parent
+    path = current_dir / 'images' / f'{crossover_operator}_plot.png'
     plt.savefig(path)
     plt.show()

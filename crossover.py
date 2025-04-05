@@ -92,10 +92,10 @@ class Crossover(Config):
 
         :return: a list of two Genotype objects.
         """
-        if crossover_operator == "S":
+        if crossover_operator == "single":
             crossover_point = self.generate_random_crossover_point()
             children = self.single_point_crossover(parent_one, parent_two, crossover_point)
-        elif crossover_operator == "D":
+        elif crossover_operator == "double":
             crossover_point_one = self.generate_random_crossover_point()
             crossover_point_two = self.generate_random_crossover_point()
             children = self.double_point_crossover(parent_one, parent_two,
